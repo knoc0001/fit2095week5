@@ -54,7 +54,9 @@ app.post('/data', function(req, res){
         }
     );
 
-    //res.sendFile('listTasks.html');
+    res.render('listTasks.html', {
+        taskDb: db
+    });
 });
 
 app.get('/listTasks', function(req, res){
