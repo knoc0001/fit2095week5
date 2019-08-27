@@ -1,12 +1,11 @@
 var express = require('express');
 var app = express();
 
-// var filepath = __dirname + "/views/";
+//var filepath = __dirname + "/views/";
 //let morgan = require('morgan');
 let bodyParser = require('body-parser');
 
 //Setup the view Engine
-
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
@@ -20,9 +19,9 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-let db = [];
+var db = [];
 db.push({
-    taskName: 'Sleeping',
+    taskName: 'Rest',
     taskDue: '20/10/19',
     taskDesc: 'Get some sleep.'
 });
@@ -42,29 +41,25 @@ app.get('/newTask', function(req, res){
     res.render('newTask.html', {
     });
 });
-
 app.post('/data', function(req, res){
     console.log(req.body.taskName);
     console.log(req.body.taskDue);
     console.log(req.body.taskDesc);
-
     db.push(
         {taskName: req.body.taskName,
         taskDue: req.body.taskDue,
         taskDesc: req.body.taskDesc
         }
     );
-
     res.render('listTasks.html', {
         taskDb: db
     });
 });
-
 app.get('/listTasks', function(req, res){
     res.render('listTasks.html', {
         taskDb: db
     });
-})
+});
 
 
 app.listen(8282);
